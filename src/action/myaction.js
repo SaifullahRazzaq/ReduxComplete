@@ -1,3 +1,5 @@
+//parameter k through
+
 //  const anothername = (name) =>
 //  {
 //      return {
@@ -11,12 +13,11 @@ const anothername = () =>
  {
    return (dispatch) =>
    {
-       fetch('https://jsonplaceholder.typicode.com/users').then((res)=>{
+     fetch('https://jsonplaceholder.typicode.com/users').then((res)=>{
            res.json().then(resp=>{
-               console.log("resp===>",resp[0].name)
                dispatch({
                    type:'Change username',
-                   payload:resp[1].name
+                   payload:resp
             })
            })
        })
