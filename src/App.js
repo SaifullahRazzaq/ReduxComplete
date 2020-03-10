@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {anothername} from './action/myaction'
+import {anothername, GetComment} from './action/myaction'
 import { conditionalExpression } from '@babel/types';
 class App extends Component {
   constructor()
@@ -25,11 +25,10 @@ class App extends Component {
 componentDidMount()
 {
   this.props.changename();
-  this.setState({data:this.props.myname})
+  this.props.GetComment();
 }
 renderUser = (user) =>
 {
-  console.log("user================>",this.props.myname)
 if(this.props.myname)
 {
 
@@ -40,10 +39,10 @@ if(this.props.myname)
 
       <li>Username:{item.username}</li>
       <li>Email:{item.email}</li>
-      <li>Phone:{item.phone}</li>
+      <li>website:{item.website}</li>
       <li>Address:{item.email}</li>
   
-</ul> 
+</ul>
       )
     })
   }
@@ -54,13 +53,38 @@ if(this.props.myname)
 
 }
 
+renderComment()
+{
+  if(this.props.mycomment)
+{
+
+  return this.props.mycomment.map((item) => {
+    return( 
+<ul>
+
+      <li>PostId:{item.postId}</li>
+      <li>Username:{item.name}</li>
+      <li>Email:{item.body}</li>
+      <li>Address:{item.email}</li>
+  
+</ul> 
+      )
+    })
+  }
+  else {
+  console.log("mapping erroor")
+  }
+
+}
   render()
   {
-//    const mydata=this.props.myname
       return (
   
     <div className="App">
-  {this.renderUser()}   
+<h1>User Data</h1>
+  {this.renderUser()} 
+  <h2>Comment Data</h2>
+  {this.renderComment()}  
     </div>
  );
   }
@@ -70,11 +94,12 @@ if(this.props.myname)
 
 const mapStateToProps = (state) =>
 {
-console.log("state=====>",state.name.user)
+
   return {
 
     myname:state.name.user,
-    mywish:state.wish
+    mycomment:state.Comment.comment
+
     
   }
   
@@ -84,7 +109,8 @@ console.log("state=====>",state.name.user)
 const mapDispatchToProps= (dispatch) =>{
 
   return {
-    changename:(name)=>{dispatch(anothername(name))}
+    changename:(name)=>{dispatch(anothername(name))},
+    GetComment:()=>{dispatch(GetComment())}
   }
 }
 
