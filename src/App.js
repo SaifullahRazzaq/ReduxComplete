@@ -27,27 +27,40 @@ componentDidMount()
   this.props.changename();
   this.setState({data:this.props.myname})
 }
-// renderUser = (user) =>
-// {
-//   console.log("user================>",this.props.myname)
+renderUser = (user) =>
+{
+  console.log("user================>",this.props.myname)
+if(this.props.myname)
+{
+
+  return this.props.myname.map((item) => {
+    console.log("item---->",item)
+    return( 
+<ul>
+
+      <li>Username:{item.username}</li>
+      <li>Email:{item.email}</li>
+      <li>Phone:{item.phone}</li>
+      <li>Address:{item.email}</li>
+  
+</ul> 
+      )
+    })
+  }
+  else {
+  console.log("mapping erroor")
+  }
 
 
-//    this.state.data.map((myname) => {
-//     return( 
-//      <li>{myname.username}</li>
-//     )
-//   })
-
-// else(console.log('mapping error'))  
-// }
+}
 
   render()
   {
-    const mydata=this.props.myname
+//    const mydata=this.props.myname
       return (
   
     <div className="App">
-      {mydata}
+  {this.renderUser()}   
     </div>
  );
   }

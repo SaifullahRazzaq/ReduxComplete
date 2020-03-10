@@ -11,18 +11,19 @@
 
 const anothername = () =>
  {
-   return (dispatch) =>
+   return async (dispatch) =>
    {
-     fetch('https://jsonplaceholder.typicode.com/users').then((res)=>{
-           res.json().then(resp=>{
-               dispatch({
-                   type:'Change username',
-                   payload:resp
-            })
-           })
-       })
+    const data=await fetch('https://jsonplaceholder.typicode.com/users');
+    const resp=await data.json();
+    dispatch({
+      type:'Change username',
+      payload:resp
+    })
+
+      
+       
    }
- }
+  }
  export
  {
      anothername
